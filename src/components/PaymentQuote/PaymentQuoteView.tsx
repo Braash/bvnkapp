@@ -1,37 +1,72 @@
 import React from 'react';
-import response from '../../constants/response.json'
 import QuoteTimer from '../Timer/Timer';
 import loaderImg from '../../assets/loader.gif'
+import qrImg from '../../assets/qr-code.png' 
+import { shortenCryptoAddress } from '../../utils/address-shortener';
 
-interface PaymentProcessViewProps {
-	selectedCurrency: string;
-	handleCurrencyChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-	handleAcceptedQuote: (uuid: string) => void;
+
+interface PaymentQuoteViewProps {
 	paymentSummaryData: any;
 	paymentSummaryDataLoading: boolean;	
-	uuid: string | undefined;		
+	uuid: string | undefined;	
+	handleCopyClick: any;
+	isCopied: boolean;	
+	textToCopyAmount: string;
+	textToCopyAddress: string;
 }
 
-const PaymentProcessView: React.FC<PaymentProcessViewProps> = ({ selectedCurrency, handleCurrencyChange, handleAcceptedQuote, paymentSummaryData, paymentSummaryDataLoading, uuid }) => {
+const PaymentQuoteView: React.FC<PaymentQuoteViewProps> = ({ paymentSummaryData, paymentSummaryDataLoading, uuid, handleCopyClick, isCopied, textToCopyAmount, textToCopyAddress }) => {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="w-1/2 h-1/2 bg-white rounded-lg shadow-lg p-8 relative">
         <h4 className="text-center text-lg font-semibold mb-4">Pay with BTC</h4>
-        <h6 className="text-center text-lg font-semibold mb-4">
+        <div className="flex justify-center items-center">
+			<h6 className="text-center text-xs mb-4 w-3/4">
 				To complete this payment send the amount due to the BTC address provided below.
-		</h6>
-		<div className="border-t border-gray-300 top-0 w-full left-0 h-px bg-gray-300" />
+			</h6>
+			</div>
+		<div className="border-t border-gray-300 w-full h-px bg-gray-300 mt-2 mb-2" />
+			<div className="flex justify-between">
+					<div className="text-center text-sm">Amount due</div>
+					<div className="flex justify-between">
+						<div className="text-center text-sm">{textToCopyAmount} {paymentSummaryData?.paidCurrency?.currency}</div>
+						<span
+							onClick={handleCopyClick('Amount')}
+							className="cursor-pointer text-blue-500 ml-2 text-sm"
+							>
+							{isCopied ? 'Copied!' : 'Copy'}
+						</span>
+					</div>
+			</div>
+		<div className="border-t border-gray-300 w-full h-px bg-gray-300 mt-2 mb-2" />
 
+		<div className="flex justify-between">
+					<div className="text-center text-sm">BTC address</div>
+					<div className="flex justify-between">
+						<div className="text-center text-sm">{shortenCryptoAddress(textToCopyAddress)}</div>
+						<span
+							onClick={handleCopyClick('Address')}
+							className="cursor-pointer text-blue-500 ml-2 text-sm"
+							>
+							{isCopied ? 'Copied!' : 'Copy'}
+						</span>
+					</div>
+					
+			</div>
 
-        <h2 className="text-center text-sm mb-4">For reference number: {response?.reference}</h2>
-        <div className="relative">
-        </div>
-        {selectedCurrency && (
-            <div className="mt-4 border-t pt-4">
-            <div className="border-t border-gray-300 top-0 w-full left-0 h-px bg-gray-300" />
-				
-				<div className="flex justify-between">
-					<div>Amount due</div>
+        <div className="flex flex-col items-center">
+			<img
+				src={qrImg}
+				className="h-32 object-cover"
+				alt="qr-code"
+				data-testid="qr-img"
+			/>
+			<div>{paymentSummaryData?.address.address}</div>
+		</div>
+
+		<div className="border-t border-gray-300 w-full h-px bg-gray-300 mt-2 mb-2" />
+			<div className="flex justify-between">
+					<div>Time left to pay</div>
 					<div>
 						{paymentSummaryDataLoading ? <img
 							src={loaderImg}
@@ -39,41 +74,14 @@ const PaymentProcessView: React.FC<PaymentProcessViewProps> = ({ selectedCurrenc
 							alt="Loader"
 							data-testid="logo-img"
 						/> :
-						<div>{paymentSummaryData?.paidCurrency?.amount} {paymentSummaryData?.paidCurrency?.currency}</div>}
+						<QuoteTimer expiryDate={paymentSummaryData?.expiryDate} />}
 					</div>
-				</div>
-
-            <div className="border-t border-gray-300 top-0 w-full left-0 h-px bg-gray-300" />
-
-				
-
-				<div className="flex justify-between">
-					<div>Quoted price expires in</div>
-					<div>
-						{paymentSummaryDataLoading ? <img
-							src={loaderImg}
-							className="h-6 object-cover bg-transparent"
-							alt="Loader"
-							data-testid="logo-img"
-						/> :
-						<QuoteTimer expiryDate={paymentSummaryData?.acceptanceExpiryDate} />}
-					</div>
-				</div>
-
-            <div className="border-t border-gray-300 top-0 w-full left-0 h-px bg-gray-300 m-1" />
-
-          <button
-            className="w-full mt-3 py-2 pl-3 border border-blue-500 bg-blue-500 text-white text-md rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
- 			onClick={() => handleAcceptedQuote(uuid as string)}
-          >
-            Continue
-          </button>
+			</div>
+		<div className="border-t border-gray-300 w-full h-px bg-gray-300 mt-2 mb-2" />
         </div>
-        )}
       </div>
-    </div>
   );
 };
 
-export default PaymentProcessView;
+export default PaymentQuoteView;
 

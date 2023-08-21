@@ -38,9 +38,7 @@ export const fetchAcceptQuoteSummary = createAsyncThunk(
 export const updateAcceptQuoteSummary = createAsyncThunk(
   'payment/fetchAcceptQuoteSummary',
   async ({ uuid, currency }: { uuid: string | undefined; currency: string }, { dispatch }) => {
-	console.log('hey1');
     try {
-		console.log('hey2');
       dispatch(setUpdatedPaymentSummaryLoading(true));
       const data = await apiActions.putAcceptQuoteSummary(uuid as string, currency);
       dispatch(setUpdatedPaymentSummaryData(data));
@@ -57,9 +55,7 @@ export const updateAcceptQuoteSummary = createAsyncThunk(
 export const confirmAcceptQuoteSummary = createAsyncThunk(
   'payment/fetchAcceptQuoteSummary',
   async ({ uuid }: { uuid: string | undefined }, { dispatch }) => {
-	console.log('hey1');
     try {
-		console.log('hey2');
       dispatch(setConfirmPaymentSummaryLoading(true));
       const data = await apiActions.putConfirmtQuoteSummary(uuid as string);
       dispatch(setConfirmPaymentSummaryData(data));

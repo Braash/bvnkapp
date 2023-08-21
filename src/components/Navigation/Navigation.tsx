@@ -1,18 +1,15 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import PaymentProcess from '../PaymentProcess/PaymentProcess';
-import { useParams } from 'react-router-dom';
-
+import PaymentQuote from '../PaymentQuote/PaymentQuote';
+import PaymentExpiry from '../PaymentExpiry/PaymentExpiry';
 
 const Navigation = () => {
-
-	const { uuid } = useParams();
-
     return (
             <Routes>
                 <Route path="/payin/:uuid" element={<PaymentProcess />} />
-				<Route path="/payin/:uuid/pay" component={PayQuotePage} />
-        		{/*<Route path="/payin/:uuid/expired" component={ExpiryPage} />		*/}
+				<Route path="/payin/:uuid/pay" element={<PaymentQuote />} />
+        		<Route path="/payin/:uuid/expired" element={<PaymentExpiry />} />
             </Routes>
     )
 };  

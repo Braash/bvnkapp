@@ -7,12 +7,13 @@ interface PaymentProcessViewProps {
 	selectedCurrency: string;
 	handleCurrencyChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 	handleAcceptedQuote: (uuid: string) => void;
+	handleUpdatedQuote: (uuid: string, currency: string) => void;
 	paymentSummaryData: any;
 	paymentSummaryDataLoading: boolean;	
 	uuid: string | undefined;		
 }
 
-const PaymentProcessView: React.FC<PaymentProcessViewProps> = ({ selectedCurrency, handleCurrencyChange, handleAcceptedQuote, paymentSummaryData, paymentSummaryDataLoading, uuid }) => {
+const PaymentProcessView: React.FC<PaymentProcessViewProps> = ({ selectedCurrency, handleCurrencyChange, handleAcceptedQuote, handleUpdatedQuote, paymentSummaryData, paymentSummaryDataLoading, uuid }) => {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="w-1/2 h-1/2 bg-white rounded-lg shadow-lg p-8 relative">
@@ -74,7 +75,7 @@ const PaymentProcessView: React.FC<PaymentProcessViewProps> = ({ selectedCurrenc
 							alt="Loader"
 							data-testid="logo-img"
 						/> :
-						<QuoteTimer expiryDate={paymentSummaryData?.acceptanceExpiryDate} />}
+						<QuoteTimer expiryDate={paymentSummaryData?.acceptanceExpiryDate} expiryFunction={handleUpdatedQuote} currency={selectedCurrency} />}
 					</div>
 				</div>
 

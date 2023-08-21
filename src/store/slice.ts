@@ -33,7 +33,7 @@ const paymentSlice = createSlice({
     reducers: {
         setPaymentSummaryLoading(
             state: any,
-            action: PayloadAction<boolean>
+            action: PayloadAction<boolean | undefined>
         ) {
             if (state.paymentSummary) {
                 state.paymentSummary.loading = action.payload;
@@ -57,7 +57,7 @@ const paymentSlice = createSlice({
         },
 		setUpdatedPaymentSummaryLoading(
             state: any,
-            action: PayloadAction<boolean>
+            action: PayloadAction<boolean | undefined>
         ) {
             if (state.updatedPaymentSummary) {
                 state.updatedPaymentSummary.loading = action.payload;
@@ -81,7 +81,7 @@ const paymentSlice = createSlice({
         },
 		setConfirmPaymentSummaryLoading(
             state: any,
-            action: PayloadAction<boolean>
+            action: PayloadAction<boolean | undefined>
         ) {
             if (state.confirmPaymentSummary) {
                 state.confirmPaymentSummary.loading = action.payload;

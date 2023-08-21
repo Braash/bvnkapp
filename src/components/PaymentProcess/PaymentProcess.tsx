@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PaymentProcessView from './PaymentProcessView';
 import { fetchAcceptQuoteSummary, updateAcceptQuoteSummary, confirmAcceptQuoteSummary } from '../../store/actions'
@@ -9,7 +9,7 @@ const PaymentProcess: React.FC = () => {
 	const { loading, data, error } = useSelector((state: any) => state?.payment?.updatedPaymentSummary);
 	const dispatch = useDispatch();
 	const { uuid } = useParams();
-	console.log(uuid, data, 'uuid');
+	let navigate = useNavigate();
 
 	const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setSelectedCurrency(event.target.value);
@@ -20,7 +20,12 @@ const PaymentProcess: React.FC = () => {
 			const action: any = confirmAcceptQuoteSummary({ uuid });
 			dispatch(action);
     	}
-		
+		navigate(`/payin/${uuid}/pay`)
+	};
+
+	const handleUpdatedQuote = (uuid: string, currency: string) => {
+			const action: any = updateAcceptQuoteSummary({ uuid, currency: selectedCurrency });
+      		dispatch(action);
 	};
 
 	useEffect(() => {
@@ -32,9 +37,7 @@ const PaymentProcess: React.FC = () => {
 
 	useEffect(() => {
 		if (selectedCurrency) {
-			console.log('hey', uuid, selectedCurrency);
-			const action: any = updateAcceptQuoteSummary({ uuid, currency: selectedCurrency });
-      		dispatch(action);
+			handleUpdatedQuote(uuid as string, selectedCurrency)
     }
 	}, [selectedCurrency, uuid])
 
@@ -44,6 +47,7 @@ const PaymentProcess: React.FC = () => {
 			selectedCurrency={selectedCurrency}
 			handleCurrencyChange={handleCurrencyChange}
 			handleAcceptedQuote={handleAcceptedQuote}
+			handleUpdatedQuote={handleUpdatedQuote}
 			paymentSummaryData={data}
 			paymentSummaryDataLoading={loading}
 			uuid={uuid}
