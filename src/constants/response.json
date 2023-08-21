@@ -1,0 +1,42 @@
+{
+    "uuid": "9b1387ab-9456-4425-82b9-278280ee10da",
+    "merchantDisplayName": "Business Account",
+    "merchantId": "fb140b88-7296-4397-bd9e-47b29a4805ee",
+    "dateCreated": 1692287443986,
+    "expiryDate": 1692289243986,
+    "quoteExpiryDate": null,
+    "acceptanceExpiryDate": null,
+    "quoteStatus": "TEMPLATE",
+    "reference": "test_reference_in_DIcGfX",
+    "type": "IN",
+    "subType": "merchantPayIn",
+    "status": "PENDING",
+    "displayCurrency": {
+        "currency": "EUR",
+        "amount": 200,
+        "actual": 0
+    },
+    "walletCurrency": {
+        "currency": "ZAR",
+        "amount": 4148.31,
+        "actual": 0
+    },
+    "paidCurrency": {
+        "currency": null,
+        "amount": 0,
+        "actual": 0
+    },
+    "feeCurrency": {
+        "currency": "ZAR",
+        "amount": 0,
+        "actual": 0
+    },
+    "displayRate": null,
+    "exchangeRate": null,
+    "address": null,
+    "returnUrl": "",
+    "redirectUrl": "https://pay.sandbox.bvnk.com/payin?uuid=9b1387ab-9456-4425-82b9-278280ee10da",
+    "transactions": [],
+    "refund": null,
+    "refunds": []
+}
