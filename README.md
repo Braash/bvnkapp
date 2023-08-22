@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+# BVNK Interview Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the BVNK Interview Test React app! This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Follow the instructions below to get started.
+
+## Getting Started
+
+1. Clone this repository to your local machine:
+   ```bash
+   git clone <repository_url>
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd <project_directory>
+   ```
+
+3. If the `node_modules` directory doesn't exist, install the project dependencies using Yarn:
+   ```bash
+   yarn
+   ```
+
+## Running the App
+
+To run the app in development mode, use the following command:
+```bash
+yarn start
+```
+This will start the app and open it in your default web browser at [http://localhost:3000](http://localhost:3000). The page will reload automatically if you make any edits, and lint errors will be displayed in the console.
+
+## Making a POST Request
+
+When the app is running locally, you need to make a POST request to the following endpoint to retrieve a UUID in postman:
+- Endpoint: `https://api.sandbox.bvnk.com/api/v1/pay/summary`
+- Payload:
+  ```json
+  {
+      "merchantId": "{{merchant_id}}",
+      "type": "IN",
+      "amount": 200,
+      "currency": "EUR",
+      "expiryMinutes": 30,
+      "reference": "{{generate_reference}}"
+  }
+  ```
+
+After making the POST request, you will receive a UUID. Manually edit the URL in your browser to:
+```
+http://localhost:3000/payin/<UUID>
+```
+This will render the Accept Quote page and initiate the flow.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In addition to the commands mentioned above, here are some additional scripts you can use:
 
-### `yarn start`
+- `yarn test`: Launches the test runner in interactive watch mode. For more information, see the [running tests documentation](https://facebook.github.io/create-react-app/docs/running-tests).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- `yarn build`: Builds the app for production to the `build` folder. This optimized production build can be deployed to your chosen hosting platform.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- `yarn eject`: **Note: this is a one-way operation.** If you're unsatisfied with the build tool and configuration choices, you can `eject` to gain full control over configurations. For more details, refer to the [ejecting documentation](https://facebook.github.io/create-react-app/docs/available-scripts#npm-run-eject).
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To learn more about Create React App, check out the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To learn React, explore the [React documentation](https://reactjs.org/).
+
+Feel free to reach out if you have any questions or need further assistance. Happy coding!
