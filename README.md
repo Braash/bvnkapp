@@ -8,7 +8,7 @@ This app consists of three main pages:
 
 2. **Pay Quote**: After selecting the crypto asset on the previous page, the user will be redirected to the Pay Quote page. Here, all the values from the previous page will be verified, and the user will be able to make the purchase. They can review the details and confirm the transaction.
 
-3. **Expiry**: If the Pay Quote page expires due to inactivity or any other reason, the user will automatically navigate to the Expiry page. This page will inform the user that the session has expired and provide instructions on how to restart the payment process if needed.
+3. **Expiry**: If the Pay Quote page expires due to inactivity or any other reason, the user will automatically navigate to the Expiry page.
 
 ## Getting Started
 
