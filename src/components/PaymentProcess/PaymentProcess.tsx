@@ -7,26 +7,33 @@ import { fetchAcceptQuoteSummary, updateAcceptQuoteSummary, confirmAcceptQuoteSu
 const PaymentProcess: React.FC = () => {
 	const [selectedCurrency, setSelectedCurrency] = useState<string>('');
 	const { loading, data, error } = useSelector((state: any) => state?.payment?.updatedPaymentSummary);
+	const initialData = useSelector((state: any) => state?.payment?.paymentSummary?.data);
+	const confirmData = useSelector((state: any) => state?.payment?.confirmPaymentSummary?.data);
 	const dispatch = useDispatch();
 	const { uuid } = useParams();
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setSelectedCurrency(event.target.value);
-	};
-
-	const handleAcceptedQuote = (uuid: string) => {
-		if (uuid) {
-			const action: any = confirmAcceptQuoteSummary({ uuid });
-			dispatch(action);
-    	}
-		navigate(`/payin/${uuid}/pay`)
 	};
 
 	const handleUpdatedQuote = (uuid: string, currency: string) => {
 			const action: any = updateAcceptQuoteSummary({ uuid, currency: selectedCurrency });
       		dispatch(action);
 	};
+
+  	const handleAcceptedQuote = async (uuid: string) => {
+		if (uuid) {
+		const action: any = confirmAcceptQuoteSummary({ uuid });
+		await dispatch(action);
+		}
+	};
+
+	useEffect(() => {
+		if (confirmData?.quoteStatus === 'ACCEPTED') {
+		navigate(`/payin/${uuid}/pay`);
+		}
+	}, [confirmData]);
 
 	useEffect(() => {
 		if (uuid) {
@@ -37,7 +44,7 @@ const PaymentProcess: React.FC = () => {
 
 	useEffect(() => {
 		if (selectedCurrency) {
-			handleUpdatedQuote(uuid as string, selectedCurrency)
+			handleUpdatedQuote(initialData?.uuid as string, selectedCurrency)
     }
 	}, [selectedCurrency, uuid])
 

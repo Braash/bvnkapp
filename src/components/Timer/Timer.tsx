@@ -32,12 +32,12 @@ const QuoteTimer: React.FC<QuoteTimerProps> = ({ expiryDate, expiryFunction, cur
 		const minutes = Math.floor((milliseconds / 1000 / 60) % 60);
 		const hours = Math.floor(milliseconds / 1000 / 3600);
 
-		return `0${hours}:0${minutes}:${seconds}`;
+		return `${hours}:${minutes}:${seconds}`;
 	};
 
 	return (
 		<div>
-		<p>{formatTime(timeRemaining)}</p>
+			<p className="text-center md:text-sm text-xs">{formatTime(timeRemaining)}</p>
 		</div>
 	);
 };

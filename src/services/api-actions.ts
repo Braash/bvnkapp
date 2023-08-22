@@ -42,7 +42,6 @@ export const putConfirmtQuoteSummary = async (uuid: string) => {
 	console.log('payload', payload)
 
     try {
-		console.log('hey3')
         const result = await api.put(`/${uuid}/accept/summary`, payload);
         return result.data;
     } catch (error) {
