@@ -2,22 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PaymentQuoteView from './PaymentQuoteView';
-import { fetchAcceptQuoteSummary, updateAcceptQuoteSummary, confirmAcceptQuoteSummary } from '../../store/actions'
+import { fetchAcceptQuoteSummary, confirmAcceptQuoteSummary } from '../../store/actions'
 
 const PaymentQuote: React.FC = () => {
-	const { loading, data, error } = useSelector((state: any) => state?.payment?.confirmPaymentSummary);
-	// const { loading, data, error } = useSelector((state: any) => state?.payment?.updatedPaymentSummary);
+
+	// REGION: REDUX STORE, HOOKS and OTHER
+
+	const { loading, data } = useSelector((state: any) => state?.payment?.confirmPaymentSummary);
 	const initialData = useSelector((state: any) => state?.payment?.paymentSummary?.data);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { uuid } = useParams();
-	console.log(data, 'paymentSummaryData');
+
+	// #endregion
+
+	// REGION: STATE
+
 	const [textToCopyAmount, setTextToCopyAmount] = useState(data?.paidCurrency?.amount);
 	const [textToCopyAddress, setTextToCopyAddress] = useState(data?.address?.address);
-  	const [isCopiedAmount, setIsCopiedAmount] = useState(false);
+	const [isCopiedAmount, setIsCopiedAmount] = useState(false);
 	const [isCopiedAddress, setIsCopiedAddress] = useState(false);
 
-  	const handleCopyClick = (fieldType: string, textToCopy: string) => {
+	// #endregion
+
+	// REGION: HANDLERS
+
+	const handleCopyClick = (fieldType: string, textToCopy: string) => {
 		const textArea = document.createElement('textarea');
 		textArea.value = textToCopy;
 		document.body.appendChild(textArea);
@@ -34,41 +44,44 @@ const PaymentQuote: React.FC = () => {
 		}
 	};
 
-	const handleExpiredQuote = () => {
-		if (data?.status === "EXPIRED") {
-			navigate(`/payin/${uuid}/pay`);
-		}
-    }
+	// #endregion
+
+	const handleExpiredQuote = (uuid: string) => {
+		navigate(`/payin/${uuid}/pay`);
+	};
+
+	// REGION: LIFECYCLE
 
 	useEffect(() => {
 		if (uuid && data?.length <= 0) {
-			const action: any = confirmAcceptQuoteSummary({ uuid });
-			dispatch(action);
-    	}
-	}, [])
-
+		const action: any = confirmAcceptQuoteSummary({ uuid });
+		dispatch(action);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (uuid && initialData?.length <= 0) {
-			const action: any = fetchAcceptQuoteSummary({ uuid });
-			dispatch(action);
-    	}
-	}, [])
-	
+		const action: any = fetchAcceptQuoteSummary({ uuid });
+		dispatch(action);
+		}
+	}, []);
+
+	// #endregion
+
 	return (
-	<div>
+		<div>
 		<PaymentQuoteView
 			paymentSummaryData={data}
 			paymentSummaryDataLoading={loading}
 			uuid={uuid}
-			handleCopyClick={handleCopyClick}
-			handleExpiredQuote={handleExpiredQuote}
 			isCopiedAmount={isCopiedAmount}
 			isCopiedAddress={isCopiedAddress}
 			textToCopyAmount={textToCopyAmount}
 			textToCopyAddress={textToCopyAddress}
+			handleCopyClick={handleCopyClick}
+			handleExpiredQuote={handleExpiredQuote}
 		/>
-	</div>
+		</div>
 	);
 };
 

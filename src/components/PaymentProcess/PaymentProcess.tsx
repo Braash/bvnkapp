@@ -5,13 +5,26 @@ import PaymentProcessView from './PaymentProcessView';
 import { fetchAcceptQuoteSummary, updateAcceptQuoteSummary, confirmAcceptQuoteSummary } from '../../store/actions'
 
 const PaymentProcess: React.FC = () => {
-	const [selectedCurrency, setSelectedCurrency] = useState<string>('');
-	const { loading, data, error } = useSelector((state: any) => state?.payment?.updatedPaymentSummary);
+
+	// REGION: REDUX STORE, HOOKS and OTHER
+
+	const { loading, data } = useSelector((state: any) => state?.payment?.updatedPaymentSummary);
 	const initialData = useSelector((state: any) => state?.payment?.paymentSummary?.data);
 	const confirmData = useSelector((state: any) => state?.payment?.confirmPaymentSummary?.data);
+	const confirmPaymentLoading = useSelector((state: any) => state?.payment?.confirmPaymentSummary?.loading);
 	const dispatch = useDispatch();
 	const { uuid } = useParams();
 	const navigate = useNavigate();
+
+	// #endregion
+
+	// REGION: STATE
+
+	const [selectedCurrency, setSelectedCurrency] = useState<string>('');
+
+	// #endregion
+
+	// REGION: HANDLERS
 
 	const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setSelectedCurrency(event.target.value);
@@ -28,6 +41,10 @@ const PaymentProcess: React.FC = () => {
 		await dispatch(action);
 		}
 	};
+
+	// #endregion
+
+	// REGION: LIFECYCLE
 
 	useEffect(() => {
 		if (confirmData?.quoteStatus === 'ACCEPTED') {
@@ -48,16 +65,19 @@ const PaymentProcess: React.FC = () => {
     }
 	}, [selectedCurrency, uuid])
 
+	// #endregion
+
 	return (
 	<div>
 		<PaymentProcessView
 			selectedCurrency={selectedCurrency}
+			paymentSummaryData={data}
+			paymentSummaryDataLoading={loading}
+			confirmPaymentSummaryLoading={confirmPaymentLoading}
+			uuid={uuid}
 			handleCurrencyChange={handleCurrencyChange}
 			handleAcceptedQuote={handleAcceptedQuote}
 			handleUpdatedQuote={handleUpdatedQuote}
-			paymentSummaryData={data}
-			paymentSummaryDataLoading={loading}
-			uuid={uuid}
 		/>
 	</div>
 	);

@@ -11,17 +11,17 @@ export interface paymentDetails {
 
 const initialPaymentState: paymentDetails = {
         paymentSummary: {
-            loading: true,
+            loading: false,
             data: null,
             error: null,
         },
 		updatedPaymentSummary: {
-            loading: true,
+            loading: false,
             data: null,
             error: null,
         },
 		confirmPaymentSummary: {
-            loading: true,
+            loading: false,
             data: null,
             error: null,
         },

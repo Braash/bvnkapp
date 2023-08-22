@@ -21,7 +21,6 @@ export const putAcceptQuoteSummary = async (uuid: string, currency: string) => {
 		currency: currency,
 		payInMethod: "crypto"
 	}
-	console.log('payload', payload)
 
     try {
 		console.log('hey3')
@@ -39,7 +38,6 @@ export const putConfirmtQuoteSummary = async (uuid: string) => {
 	const payload = {
   		successUrl: "no_url"
 	}
-	console.log('payload', payload)
 
     try {
         const result = await api.put(`/${uuid}/accept/summary`, payload);

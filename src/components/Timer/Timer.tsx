@@ -18,7 +18,7 @@ const QuoteTimer: React.FC<QuoteTimerProps> = ({ expiryDate, expiryFunction, cur
 
 		if (updatedTimeRemaining <= 0 && expiryFunction) {
 			clearInterval(interval);
-			expiryFunction(uuid as string, currency as string); // Invoke the expiryFunction when timeRemaining is <= 0
+			expiryFunction(uuid as string, currency as string);
 		}
 		}, 1000);
 

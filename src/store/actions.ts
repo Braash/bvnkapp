@@ -9,13 +9,12 @@ import {
     setConfirmPaymentSummaryData,
     setConfirmPaymentSummaryError,
 } from './slice';
-//import { YourData } from './types'; 
 import * as apiActions from '../services/api-actions';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 interface UpdateAcceptQuoteSummaryArgs {
-  uuid: string;
-  currency: string;
+	uuid: string;
+	currency: string;
 }
 
 export const fetchAcceptQuoteSummary = createAsyncThunk(
@@ -36,7 +35,7 @@ export const fetchAcceptQuoteSummary = createAsyncThunk(
 );
 
 export const updateAcceptQuoteSummary = createAsyncThunk(
-  'payment/fetchAcceptQuoteSummary',
+  'payment/updateAcceptQuoteSummary',
   async ({ uuid, currency }: { uuid: string | undefined; currency: string }, { dispatch }) => {
     try {
       dispatch(setUpdatedPaymentSummaryLoading(true));
@@ -53,7 +52,7 @@ export const updateAcceptQuoteSummary = createAsyncThunk(
 );
 
 export const confirmAcceptQuoteSummary = createAsyncThunk(
-  'payment/fetchAcceptQuoteSummary',
+  'payment/confirmAcceptQuoteSummary',
   async ({ uuid }: { uuid: string | undefined }, { dispatch }) => {
     try {
       dispatch(setConfirmPaymentSummaryLoading(true));
