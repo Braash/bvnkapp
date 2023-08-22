@@ -1,6 +1,14 @@
 # BVNK Interview Test
 
-Welcome to the BVNK Interview Test React app! This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Follow the instructions below to get started.
+Welcome to the BVNK Interview Test React app...
+
+This app consists of three main pages:
+
+1. **Accept Quote**: On this page, the user will have the option to choose which crypto asset they will use to purchase EUR(Fiat). They can select the desired crypto asset and proceed with the payment process.
+
+2. **Pay Quote**: After selecting the crypto asset on the previous page, the user will be redirected to the Pay Quote page. Here, all the values from the previous page will be verified, and the user will be able to make the purchase. They can review the details and confirm the transaction.
+
+3. **Expiry**: If the Pay Quote page expires due to inactivity or any other reason, the user will automatically navigate to the Expiry page. This page will inform the user that the session has expired and provide instructions on how to restart the payment process if needed.
 
 ## Getting Started
 
@@ -25,11 +33,12 @@ To run the app in development mode, use the following command:
 ```bash
 yarn start
 ```
+
 This will start the app and open it in your default web browser at [http://localhost:3000](http://localhost:3000). The page will reload automatically if you make any edits, and lint errors will be displayed in the console.
 
 ## Making a POST Request
 
-When the app is running locally, you need to make a POST request to the following endpoint to retrieve a UUID in postman:
+When the app is running locally, you need to make a POST request to the following endpoint to retrieve a UUID in Postman:
 - Endpoint: `https://api.sandbox.bvnk.com/api/v1/pay/summary`
 - Payload:
   ```json
@@ -58,11 +67,3 @@ In addition to the commands mentioned above, here are some additional scripts yo
 - `yarn build`: Builds the app for production to the `build` folder. This optimized production build can be deployed to your chosen hosting platform.
 
 - `yarn eject`: **Note: this is a one-way operation.** If you're unsatisfied with the build tool and configuration choices, you can `eject` to gain full control over configurations. For more details, refer to the [ejecting documentation](https://facebook.github.io/create-react-app/docs/available-scripts#npm-run-eject).
-
-## Learn More
-
-To learn more about Create React App, check out the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, explore the [React documentation](https://reactjs.org/).
-
-Feel free to reach out if you have any questions or need further assistance. Happy coding!
